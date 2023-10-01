@@ -2,9 +2,13 @@ import { Server, createServer } from "http";
 import e from "express";
 import { exitLog } from "./helpers";
 import CONFIG from "./config";
+import ConsumerFactory from "@/common/consumer-factory";
 
 export const startServer = (app: e.Application): Server => {
   const httpServer = createServer(app);
+  const consumerFactory = new ConsumerFactory();
+  process.stdout.write(`Initialize kafka consumer`);
+  consumerFactory.startConsumer();
 
   process
     .on("SIGINT", () => exitLog(null, "SIGINT"))
@@ -18,7 +22,7 @@ export const startServer = (app: e.Application): Server => {
     process.stdout.write(`⚙️ Application Environment: ${CONFIG.APP.ENV}\n`);
     process.stdout.write(`⏱ Started on: ${Date.now()}\n`);
     process.stdout.write(
-      `🚀 TEN-STACK-API Server ready at http://localhost:${CONFIG.APP.PORT}\n`,
+      `🚀 MANAGER-EXPENSES Server ready at http://localhost:${CONFIG.APP.PORT}\n`,
     );
   });
 };

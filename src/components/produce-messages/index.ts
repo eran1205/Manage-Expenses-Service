@@ -1,0 +1,1 @@
+export { ProduceMessageController } from "./controller";
